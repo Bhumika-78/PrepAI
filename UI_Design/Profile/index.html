@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PrepAI Profile</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar Section -->
+      <aside class="sidebar">
+        <h1 class="logo">Interview.io</h1>
+        <nav class="menu">
+          <ul>
+            <li><i class="fas fa-home overview-icon"></i> Overview</li>
+            <li>
+              <i class="fas fa-calendar-check interviews-icon"></i> Interviews
+            </li>
+            <li><i class="fas fa-video video-icon"></i> Video Calling</li>
+            <li><i class="fas fa-user profile-icon"></i> Profile</li>
+            <li><i class="fas fa-sign-out-alt logout-icon"></i> Log out</li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Profile Section -->
+      <section class="profile-section">
+        <div class="profile-card">
+          <img src="profile-pic.jpg" alt="User Picture" class="profile-pic" />
+          <h2>Name of the User</h2>
+          <p>Company name</p>
+          <p class="profile-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus mi
+            accumsan.
+          </p>
+          <ul class="stats">
+            <li>Total Interviews <span>10</span></li>
+            <li>Pending Interviews <span>04</span></li>
+            <li>Completed Interviews <span>06</span></li>
+            <li>
+              Your Resume <span><i class="fa fa-download"></i></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- User Info Form -->
+        <div class="user-info">
+          <div class="tabs">
+            <button class="tab active">User Info</button>
+          </div>
+          <form class="profile-form">
+            <div class="form-group">
+              <label>Name of the Student</label>
+              <input type="text" placeholder="Enter your name" />
+            </div>
+            <div class="form-group">
+              <label>Date of Birth</label>
+              <input type="date" />
+            </div>
+            <div class="form-group">
+              <label>Name of the Institute</label>
+              <input type="text" placeholder="Enter institute name" />
+            </div>
+            <div class="form-group">
+              <label>Department</label>
+              <input type="text" placeholder="Enter your department" />
+            </div>
+            <div class="form-group">
+              <label>Year</label>
+              <input type="text" placeholder="Enter year" />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="Enter email" />
+            </div>
+            <div class="form-group">
+              <label>Github URL</label>
+              <input type="url" placeholder="Enter Github URL" />
+            </div>
+            <div class="form-group">
+              <label>LinkedIn URL</label>
+              <input type="url" placeholder="Enter LinkedIn URL" />
+            </div>
+            <div class="form-group">
+              <label>Behance URL</label>
+              <input type="url" placeholder="Enter Behance URL" />
+            </div>
+            <div class="form-group">
+              <label>Skills You Have</label>
+              <input type="text" placeholder="Add skills" />
+              <button class="add-skill">+ Add Skill</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

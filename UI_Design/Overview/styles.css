@@ -1,0 +1,186 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  background-color: #f7f7f7;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.logo h2 {
+  color: #ff5722;
+  font-size: 24px;
+}
+
+.menu {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.menu li {
+  margin: 20px 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.menu li i {
+  margin-right: 10px;
+  color: #ff5722;
+  font-size: 22px;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.menu li:hover {
+  transform: scale(1.05);
+  color: #ff5722;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.main-content {
+  width: 80%;
+  padding: 30px;
+  background-color: white;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+header h2 {
+  font-size: 28px;
+  font-weight: 500;
+  color: #333;
+}
+
+header h2 span {
+  color: #ff5722;
+}
+
+/* Upcoming Interview Section */
+.upcoming-interviews {
+  margin-top: 40px;
+}
+
+.upcoming-interviews h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.event-list {
+  list-style: none;
+  padding: 0;
+}
+
+.event-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.event-date {
+  font-weight: bold;
+  font-size: 16px;
+  color: #ff5722;
+  margin-right: 20px;
+  flex-shrink: 0;
+  border-left: 4px solid #ff5722;
+  padding-left: 10px;
+}
+
+.event-details {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Feedback Request Section */
+.feedback-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 40px;
+}
+
+.feedback-content {
+  width: 60%;
+}
+
+.feedback-content h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.feedback-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.submit-feedback {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-feedback:hover {
+  background-color: #e64a19;
+}
+
+/* Interview Image Section */
+.interview-image-section {
+  width: 35%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.interview-image-section img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 10px;
+}

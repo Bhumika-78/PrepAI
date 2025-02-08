@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mock Interview UI</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <img src="logo.png" alt="Logo" />
+      <h1>Mock interview on UI - Balaji Sri Mani Charan Naidu Sundarapu</h1>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container">
+      <!-- Left Section (Video Section) -->
+      <div class="video-section">
+        <img src="interviewer.jpg" alt="Interviewee" class="profile-img" />
+        <h2>Interviewee</h2>
+
+        <!-- Chat Box -->
+        <div class="chat-box">
+          <span class="chat-label">You:</span>
+          <span class="chat-message"></span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="settings-btn">
+            <i class="fas fa-cog"></i>Settings
+          </button>
+          <button class="mute-btn">
+            <i class="fas fa-microphone-slash"></i>Mute
+          </button>
+          <button class="start-btn"><i class="fas fa-play"></i>Start</button>
+          <button class="camera-btn"><i class="fas fa-video"></i>Camera</button>
+          <button class="editor-btn"><i class="fas fa-code"></i>Editor</button>
+        </div>
+      </div>
+
+      <!-- Right Section (Chat Section) -->
+      <div class="chat-section">
+        <div class="chat-tabs">
+          <button class="active">Conversation</button>
+          <button class="inactive">Interview details</button>
+        </div>
+
+        <div class="chat-window">
+          <!-- Chat messages will be displayed here -->
+        </div>
+
+        <div class="input-section">
+          <input type="text" placeholder="Type your answer here..." />
+          <button>Send</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PrepAI Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="sidebar">
+        <div class="logo">
+          <h2>Interview.io</h2>
+        </div>
+        <ul class="menu">
+          <li><i class="fas fa-home"></i> <a href="#">Overview</a></li>
+          <li><i class="fas fa-comments"></i> <a href="#">Interviews</a></li>
+          <li><i class="fas fa-video"></i> <a href="#">Video Calling</a></li>
+          <li><i class="fas fa-user"></i> <a href="#">Profile</a></li>
+          <li><i class="fas fa-sign-out-alt"></i> <a href="#">Log out</a></li>
+        </ul>
+      </nav>
+
+      <div class="main-content">
+        <header>
+          <h2>Hai, Sekhar welcome to <span>Interview.io</span></h2>
+        </header>
+
+        <!-- Upcoming Interview Section -->
+        <div class="upcoming-interviews">
+          <h3>Upcoming Interviews</h3>
+          <ul class="event-list">
+            <li class="event-card">
+              <span class="event-date">Oct 20, 2024</span>
+              <div class="event-details">
+                <p>Company: TechCorp</p>
+                <p>Position: Software Engineer</p>
+                <p>Time: 2:00 PM</p>
+              </div>
+            </li>
+            <li class="event-card">
+              <span class="event-date">Oct 25, 2024</span>
+              <div class="event-details">
+                <p>Company: InnovateX</p>
+                <p>Position: Frontend Developer</p>
+                <p>Time: 11:00 AM</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Interview Feedback Request Section -->
+        <div class="feedback-section">
+          <div class="feedback-content">
+            <h3>Interview Feedback Request</h3>
+            <p>Request feedback from your interviewer or practice partner:</p>
+            <form class="feedback-form">
+              <textarea
+                rows="4"
+                placeholder="Enter your feedback request message..."
+              ></textarea>
+              <button class="submit-feedback">Request Feedback</button>
+            </form>
+          </div>
+
+          <!-- Interview Image Section -->
+          <div class="interview-image-section">
+            <img
+              src="freepik__upload__17472.jpeg"
+              alt="Interview Illustration"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

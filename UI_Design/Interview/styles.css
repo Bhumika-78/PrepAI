@@ -1,0 +1,232 @@
+/* Importing Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&family=Montserrat:wght@400;600&display=swap");
+
+/* General Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set the font for the body, headings, and other elements */
+body {
+  font-family: "Montserrat", sans-serif; /* Body font */
+  background-color: #f7f7f7;
+}
+
+h1,
+h2 {
+  font-family: "Poppins", sans-serif; /* Headings font */
+  font-weight: 600;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  background-color: #fff;
+  width: 250px;
+  padding: 24px;
+  height: 806px;
+  border-right: 1px solid #e6e6e6;
+}
+
+.sidebar h1 {
+  color: #f1720a;
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: color 0.3s, transform 0.3s ease, box-shadow 0.3s ease,
+    opacity 0.3s ease;
+  font-family: "Montserrat", sans-serif; /* Sidebar items font */
+}
+
+.sidebar ul li i {
+  margin-right: 10px;
+  font-size: 22px;
+  color: #f1720a;
+  transition: color 0.3s ease;
+}
+
+/* Hover Effects for Sidebar Menu Items */
+.sidebar ul li:hover {
+  transform: scale(1.05); /* Same hover effect as 1st CSS */
+  color: #f1720a;
+  cursor: pointer;
+  opacity: 0.9;
+  box-shadow: none;
+}
+
+.sidebar ul li:hover i {
+  color: #f1720a;
+}
+
+/* Content Section Styling */
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-grow: 1;
+  padding: 40px;
+  height: 806px;
+  background-color: #ffffff;
+}
+
+.description {
+  max-width: 500px;
+}
+
+.description h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: "Montserrat", sans-serif; /* Description headings font */
+}
+
+.description .highlight {
+  color: #f1720a;
+}
+
+.description p {
+  margin-top: 10px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Form Section Styling */
+.form-container {
+  background-color: #fff;
+  padding: 38px;
+  border-radius: 19px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 107%;
+  height: 736px;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Hover Effect for Form Container */
+.form-container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, border 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover Effects for Form Inputs */
+.form-group input[type="text"]:hover,
+.form-group input[type="file"]:hover,
+.form-group select:hover {
+  background-color: #f0f0f0;
+  border: 2px solid #f1720a;
+  opacity: 0.8;
+}
+
+/* Hover Effects for Radio Buttons */
+.form-group input[type="radio"]:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Submit Button Styling */
+.submit-btn {
+  background-color: #f1720a;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover Effects for Submit Button */
+.submit-btn:hover {
+  background-image: linear-gradient(45deg, #d95e08, #e06500);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(0.95);
+  opacity: 0.9;
+}
+
+/* Icon Animation on Button */
+.submit-btn i {
+  margin-right: 10px;
+  font-size: 20px;
+  transition: transform 0.6s ease;
+}
+
+.submit-btn:hover i {
+  transform: none;
+}
+
+/* Pulse Animation on Button */
+.submit-btn:hover {
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Create Interview Session Button */
+.create-interview-btn {
+  padding: 8px;
+  background-color: #f1720a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.3s; /* Transition effect for hover */
+}
+
+/* Hover Effects for Create Interview Session Button (similar to Add Skill/User Info) */
+.create-interview-btn:hover {
+  background-color: #d65a07;
+  transform: scale(1.05); /* Same scale effect on hover */
+}
