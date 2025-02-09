@@ -40,11 +40,13 @@ const Sidebar = () => {
           <ul>
             <li><Link to={'/'} ><i className="fas fa-home overview-icon"></i> {isOpen ? "Overview" : ""} </Link></li>
             {userDetails.role==="candidate" && <li><Link to={'/qa'}>
-              <i className="fa-solid fa-circle-question interviews-icon"></i> {isOpen ? "Interview Q/A" : ""}
+              <i className="fa-solid fa-circle-question interviews-icon no-underline"></i> {isOpen ? "Interview Q/A" : ""}
             </Link></li>}
             {userDetails.role==="candidate" && <li><Link to={'/quiz'}>
               <i className="fa-solid fa-brain interviews-icon"></i> {isOpen ? "Interview Quiz" : ""}
             </Link></li>}
+    <li><Link to={'/interview-room'}><i className="fas fa-video video-icon"></i>  {isOpen ? "Interview Room" : ""}
+    </Link></li>
             <li><Link to={'/createroom'}><i className="fas fa-video video-icon"></i>  {isOpen ? "Create Room" : ""}
             </Link></li>
             <li><Link to={'/profile'} ><i className="fas fa-user profile-icon"></i>   {isOpen ? "Profile" : ""}

@@ -5,6 +5,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { BsTelephoneX } from "react-icons/bs";
 import Chat from "../components/Chat";
 import { useStore } from "../store/store.js";
+import { loadFaceModels, analyzeFace } from "../utils/faceAnalysis";
+import { generateFeedback } from "../utils/feedbackController";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -21,7 +23,8 @@ const VideoCall = () => {
   const [myUserId, setMyUserId] = useState(null);
   const [userCount, setUserCount] = useState(0);
   const [isSharing, setIsSharing] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false); // State for chat modal
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [responses, setResponses] = useState([]); // Store user responses
   const screenVideoRef = useRef(null);
   const screenStreamRef = useRef(null);
   const videoContainer = useRef();
@@ -35,6 +38,46 @@ const VideoCall = () => {
   const myVoice = useRef();
   const videoRef = useRef();
   const hiddenVoice = useRef();
+
+  const videoElement = useRef(null);
+
+  useEffect(() => {
+    const initializeFaceDetection = async () => {
+      await loadFaceModels(); // Load models before using them
+    };
+
+    initializeFaceDetection();
+  }, []);
+
+  const handleCallEnd = async () => {
+    try {
+      // Step 1: Analyze face engagement
+      const faceEngagement = await analyzeFace(videoElement.current);
+
+      // Step 2: Redirect to feedback page with data
+      navigate("/feedback", {
+        state: {
+          faceEngagement,
+        },
+      });
+    } catch (error) {
+      console.error("Error generating feedback:", error);
+      navigate("/feedback", {
+        state: {
+          error: "Failed to generate feedback.",
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    const initializeFaceDetection = async () => {
+      await loadFaceModels();
+      // Now you can use analyzeFace
+    };
+
+    initializeFaceDetection();
+  }, []);
 
   const createPeer = useCallback((userToSignal, callerID, stream) => {
     const peer = new Peer({
@@ -52,7 +95,6 @@ const VideoCall = () => {
     peer.on("error", (err) => {
       console.log("Peer error: ", err);
       if (err.toString().includes("Connection failed")) {
-        // Handle connection failure (e.g., try to reconnect or remove peer)
         removePeer(userToSignal);
       }
     });
@@ -80,7 +122,6 @@ const VideoCall = () => {
     peer.on("error", (err) => {
       console.log("Peer error: ", err);
       if (err.toString().includes("Connection failed")) {
-        // Handle connection failure (e.g., try to reconnect or remove peer)
         removePeer(callerID);
       }
     });
@@ -180,25 +221,44 @@ const VideoCall = () => {
     };
   }, [params.id, addPeer, removePeer, createPeer]);
 
-  const handleDisconnect = () => {
-    socket.emit("disconnect-from-room", params.id);
-    navigate("/createroom");
+  const handleDisconnect = async () => {
+    try {
+      // Step 1: Analyze face engagement
+      const faceEngagement = await analyzeFace(myVideo.current);
+
+      // Step 2: Generate feedback
+      const feedback = await generateFeedback(myVideo.current, responses);
+
+      // Step 3: Redirect to feedback page with data
+      navigate("/feedback", {
+        state: {
+          faceEngagement,
+          responses,
+          feedback,
+        },
+      });
+    } catch (error) {
+      console.error("Error generating feedback:", error);
+      navigate("/feedback", {
+        state: {
+          error: "Failed to generate feedback.",
+        },
+      });
+    }
   };
 
   const handleVoice = () => {
     const audioTrack = streamRef.current.getAudioTracks()[0];
     if (audioTrack) {
-      audioTrack.enabled = !audioTrack.enabled; // Toggle audio track
+      audioTrack.enabled = !audioTrack.enabled;
       myVoice.current.firstChild.src = audioTrack.enabled
         ? "./mic.png"
         : "./no-noise.png";
     }
 
     if (audioTrack.enabled == false) {
-      console.log("Audio is disabled");
       hiddenVoice.current.style.display = "block";
     } else {
-      console.log("Audio is enabled");
       hiddenVoice.current.style.display = "none";
     }
   };
@@ -207,7 +267,7 @@ const VideoCall = () => {
     const videoTrack = streamRef.current.getVideoTracks()[0];
 
     if (videoTrack) {
-      videoTrack.enabled = !videoTrack.enabled; // Toggle video track
+      videoTrack.enabled = !videoTrack.enabled;
       videoRef.current.firstChild.src = videoTrack.enabled
         ? "./video-camera.png"
         : "./no-video.png";
@@ -225,7 +285,6 @@ const VideoCall = () => {
 
       videoContainer.current.classList.remove("hidden");
 
-      // Stop sharing when the user closes the screen share dialog
       screenStream.getVideoTracks()[0].onended = () => stopScreenShare();
     } catch (error) {
       console.error("Error sharing screen:", error);
@@ -245,108 +304,101 @@ const VideoCall = () => {
   };
 
   return (
-    <>
-      <div className="p-8">
-        <div ref={videoContainer} className="p-8 hidden">
-          <div className="flex  justify-center items-center">
-            <video
-              ref={screenVideoRef}
-              autoPlay
-              playsInline
-              className="max-w-lg h-auto border-4 border-green-400 rounded-lg w-[1/2]"
-            />
+    <div className="video-call-container bg-gray-900 text-white min-h-screen p-8 flex">
+      {/* Left Side: Video Section */}
+      <div className="video-section w-1/2 pr-4">
+        {/* Top Video (Your Video) */}
+        <div className="relative mb-4">
+          <img
+            ref={hiddenVoice}
+            className="absolute right-2 top-2 bg-gray-500 bg-opacity-60 text-white px-2 py-1 rounded w-12"
+            src="./no-noise.png"
+            alt="Muted"
+          />
+          <video
+            autoPlay
+            playsInline
+            muted
+            ref={myVideo}
+            className="w-full h-auto rounded-lg"
+          />
+          <div className="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded">
+            You ({role})
           </div>
         </div>
 
-        <div className="video-container flex justify-start items-center flex-wrap gap-2 ">
-          <div className="relative flex flex-col flex-wrap gap-2">
-            <img
-              ref={hiddenVoice}
-              className="absolute right-0 top-0 bg-gray-500 bg-opacity-60 text-white px-2 py-1 rounded w-[50px]"
-              src="./no-noise.png"
-              alt=""
-            />
-            <video
-              autoPlay
-              playsInline
-              muted
-              ref={myVideo}
-              width={450}
-              className="rounded-lg h-auto"
-            ></video>
-            <div className="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded">
-              You ({role})
-            </div>
-            {peers.map((peer, index) => (
-              <Video key={index} peer={peer.peer} />
-            ))}
+        {/* Bottom Video (Peer Video) */}
+        {peers.map((peer, index) => (
+          <div key={index} className="relative">
+            <Video peer={peer.peer} />
           </div>
-
-          <Chat />
-        </div>
-
-        <div className="buttons flex gap-2 justify-center mt-2">
-          <button
-            ref={myVoice}
-            onClick={handleVoice}
-            className=" transition text-white rounded-full p-3"
-          >
-            <img src="./no-noise.png" alt="mic" className="w-7" />
-          </button>
-          <button
-            ref={videoRef}
-            onClick={handleVideo}
-            className=" transition text-white rounded-full p-3"
-          >
-            <img src="./no-video.png" alt="video" className="w-7" />
-          </button>
-
-          {!isSharing ? (
-            <button
-              onClick={startScreenShare}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
-            >
-              Start Screen Share
-            </button>
-          ) : (
-            <button
-              onClick={stopScreenShare}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-            >
-              Stop Screen Share
-            </button>
-          )}
-          <button
-            onClick={handleDisconnect}
-            className="bg-[#dc263e] hover:bg-red-500 w-28 transition text-white rounded-full p-3 flex justify-center items-center"
-          >
-            <BsTelephoneX className="text-2xl" />
-          </button>
-        </div>
+        ))}
       </div>
-    </>
+
+      {/* Right Side: Chat Section */}
+      <div className="chat-section w-1/2 pl-4">
+        <Chat />
+      </div>
+
+      {/* Control Buttons */}
+      <div className="control-buttons fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 w-5">
+        <button
+          ref={myVoice}
+          onClick={handleVoice}
+          className="bg-[#F1720A] hover:bg-[#e65c00] text-white rounded-full p-3 transition duration-300"
+        >
+          <img src="./no-noise.png" alt="mic" className="w-7" />
+        </button>
+        <button
+          ref={videoRef}
+          onClick={handleVideo}
+          className="bg-[#F1720A] hover:bg-[#e65c00] text-white rounded-full p-3 transition duration-300"
+        >
+          <img src="./no-video.png" alt="video" className="w-7" />
+        </button>
+
+        {!isSharing ? (
+          <button
+            onClick={startScreenShare}
+            className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg transition duration-300"
+          >
+            Start Screen Share
+          </button>
+        ) : (
+          <button
+            onClick={stopScreenShare}
+            className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg transition duration-300"
+          >
+            Stop Screen Share
+          </button>
+        )}
+{/* <video ref={videoElement} autoPlay playsInline muted /> */}
+      <button
+        onClick={handleDisconnect}
+        className="bg-[#dc263e] hover:bg-red-500 text-white rounded-full p-3 flex justify-center items-center transition duration-300"
+      >
+        <BsTelephoneX className="text-2xl" />
+      </button>
+      </div>
+    </div>
   );
 };
 
 const Video = ({ peer }) => {
   const ref = useRef();
   const hiddenPeerVoice = useRef();
-  
+
   useEffect(() => {
     if (peer) {
       peer.on("stream", (stream) => {
         if (ref.current) {
           ref.current.srcObject = stream;
         }
-        // Get the audio tracks and monitor them
         const audioTrack = stream.getAudioTracks()[0];
-  
-        // Set initial state (check if muted on initial load)
-        if(audioTrack.enabled == false){
-            hiddenPeerVoice.current.style.display = 'block';
-        }
-        else{
-            hiddenPeerVoice.current.style.display = 'none';
+        if (audioTrack.enabled == false) {
+          hiddenPeerVoice.current.style.display = "block";
+        } else {
+          hiddenPeerVoice.current.style.display = "none";
         }
       });
     }
@@ -358,10 +410,14 @@ const Video = ({ peer }) => {
         autoPlay
         playsInline
         ref={ref}
-        width={450}
-        className="rounded-lg h-auto"
+        className="w-full h-auto rounded-lg"
       />
-       <img ref={hiddenPeerVoice} className='absolute top-2 left-2 bg-gray-500 bg-opacity-60 text-white px-2 py-1 rounded w-[50px]' src="./no-noise.png" alt="" />
+      <img
+        ref={hiddenPeerVoice}
+        className="absolute top-2 left-2 bg-gray-500 bg-opacity-60 text-white px-2 py-1 rounded w-12"
+        src="./no-noise.png"
+        alt="Muted"
+      />
       <div className="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded">
         Peer
       </div>

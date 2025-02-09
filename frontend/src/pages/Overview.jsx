@@ -3,6 +3,7 @@ import './Overview.scss';
 import Sidebar from '../components/Sidebar.jsx';
 import { useStore } from '../store/store.js';
 import Chatbot from '../components/Chatbot.jsx';
+import InterviewEvaluation from "../components/InterviewEvaluation.jsx";
 
 const Dashboard = () => {
   const { user } = useStore();
@@ -40,6 +41,10 @@ const Dashboard = () => {
               </li>
             </ul>
           </div>
+
+          {/* <div>
+      <InterviewEvaluation />
+    </div> */}
 
           {/* Interview Feedback Request Section */}
           <div className="feedback-section">

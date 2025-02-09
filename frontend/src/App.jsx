@@ -19,6 +19,8 @@ import "./App.scss"
 import 'react-tooltip/dist/react-tooltip.css'
 import { useState } from 'react'
 const API_URL = import.meta.env.VITE_API_URL;
+// import InterviewRoom from './pages/InterviewRoom.jsx'
+import FeedbackPage from './pages/FeedbackPage.jsx'
 
 function App() {
   // const user = false
@@ -117,8 +119,14 @@ function App() {
     {
       path: "/*",
       element: <Page404 />
-    }
+    },
+      {path:"/", element:<AuthPage />},
+      // {path:"/interview-room", element:<InterviewRoom />},
+      {path:"/feedback", element:<FeedbackPage />}
+
    ])
+
+
 
   return (
     <div>

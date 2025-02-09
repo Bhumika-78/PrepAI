@@ -28,3 +28,37 @@
   ::-webkit-scrollbar-thumb:active {
     background: #ff4000
   }
+
+
+  .video-call-container {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .video-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .chat-section {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    height: calc(100vh - 64px); /* Adjust height as needed */
+    overflow-y: auto;
+  }
+  
+  .control-buttons {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .control-buttons button {
+    transition: all 0.3s ease;
+  }
+  
+  .control-buttons button:hover {
+    transform: scale(1.1);
+  }
